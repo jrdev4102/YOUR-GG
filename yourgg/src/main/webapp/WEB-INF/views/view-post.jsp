@@ -74,11 +74,42 @@
 					
 					<input style="float: left" type="button" class="btn btn-danger" onclick="goList();" value="목록" />
 					<input style="float: right" id="delete-button" type="button" class="btn btn-danger ml-1" data-toggle="modal" data-target="#modal-delete" value="삭제" />
-					<input style="float: right" type="button" class="btn btn-dark ml-1" onclick="doWrite();" value="글쓰기" />
+					<input style="float: right" type="button" class="btn btn-light ml-1" onclick="doWrite();" value="글쓰기" />
 					<input style="float: right" type="button" class="btn btn-info ml-1" data-toggle="modal" data-target="#modal-update" value="수정" id="update-button"/>
 					<input style="float: right" type="hidden" class="btn btn-info ml-1" onclick="doUpdatePost();" value="수정" id="true-update-button"/>
 					
-					<br>
+					<br><br>
+					
+					<table class="table table-dark table-hover text-left my-table border-0" >
+						<tr>
+							<th class="border-0" style="width: 20%"><a class="text-danger border-0">${count}개</a>의 댓글이 달렸습니다</th>
+							<th class="border-0" style="width: 80%"></th>
+						</tr>
+						<c:forEach items="${comment}" var="comment">
+						<tr class="alert-light">
+							<td>
+								<p class="font-weight-bold">${comment.commentWriter}
+								<br><br>
+								<span class="small"><fmt:formatDate pattern="yyyy-MM-dd" value="${comment.commentRegdate}" /></span>
+								</p>
+							</td>	
+							<td>
+								<p>${comment.commentContent}</p>
+							</td>
+							</tr>
+						</c:forEach>
+						<tr>
+							<form id="comment-form">
+								<td class="align-middle"><input type="text" id="comment-writer" class="form-control" placeholder="닉네임"></td>
+								<td c>
+									<textarea class="form-control" rows="5" id="comment-content" maxlength="1000" onchange="adjustHeight();" placeholder="내용"></textarea>
+								</td>
+							</form>
+						</tr>
+					</table>
+					<input style="float: right" type="button" class="btn btn-light ml-1" onclick="postComment();" value="댓글 등록" />
+					
+					<br><br><br>
 					
 					<ul class="pagination justify-content-center my" st>
 						<c:if test="${pageInfo.prev}">
@@ -189,7 +220,7 @@
 			var nowPage = document.location.search.replace("?","").split("&")[0];
 			var boardNumber = $("#board-number").val();
 			var password = $("#delete-password").val();
-			var sendData = {"boardNumber": $("#board-number").val(), "boardPassword" : $("#delete-password").val()};
+			var sendData = {"boardNumber": boardNumber, "boardPassword" : password};
 			
 			$.ajax({
 				url: "/delete",
@@ -214,7 +245,7 @@
 		function doUpdate() {
 			var boardNumber = $("#board-number").val();
 			var password = $("#update-password").val();
-			var sendData = {"boardNumber": $("#board-number").val(), "boardPassword" : $("#update-password").val()};
+			var sendData = {"boardNumber": boardNumber, "boardPassword" : password};
 			
 			$.ajax({
 				url: "/update-judge",
@@ -246,7 +277,7 @@
 				alert("제목을 입력하십시오");
 				return;
 			}
-			if(contentCheck.length < 1){
+			else if(contentCheck.length < 1){
 				alert("내용을 입력하십시오");
 				return;
 			}
@@ -254,7 +285,46 @@
 				alert("게시글을 수정하였습니다");
 				$("#updateForm").submit();
 			}
+		}
+		
+		function postComment() {
+			var nowPage = document.location.search.replace("?","").split("&")[0].replace("page=","");
+			var boardNumber = $("#board-number").val();
+			var commentWriter = $("#comment-writer").val();
+			var commentContent = $("#comment-content").val();
+			var sendData = {
+						"page": nowPage, 
+						"boardNumber" : boardNumber,
+						"commentWriter" : commentWriter,
+						"commentContent" : commentContent
+						};
 			
+			console.log(sendData);
+			
+			if(commentWriter.length < 1){
+				alert("닉네임을 입력하십시오");
+				return;
+			}
+			else if(commentContent.length < 1){
+				alert("내용을 입력하십시오");
+				return;
+			}
+			
+			$.ajax({
+				url: "/post/comment",
+				type: "POST",
+				dataType: "json",
+				data: sendData,
+				success: function (data) {
+					if (data) {
+						alert("댓글을 달았습니다");
+						window.location = "view-post?page=" + data.page + "&boardNumber=" + data.board.boardNumber;
+					}
+				},
+				error: function () {
+					alert("Error. 관리자에게 문의하십시오.");
+				},
+			});
 			
 		}
 		

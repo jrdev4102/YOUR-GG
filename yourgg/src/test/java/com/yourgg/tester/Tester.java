@@ -7,7 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.yourgg.service.BoardService;
+import com.yourgg.domain.CommentVO;
+import com.yourgg.service.CommentService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -17,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 public class Tester {
 
 	@Autowired
-	private BoardService service;
+	private CommentService service;
 	
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
@@ -43,15 +44,24 @@ public class Tester {
 	
 	@Test
 	public void test() {
+		int boardNumber = 81;
+		log.info(boardNumber);
 		
-		String str = "1234";
-		String pass = passwordEncoder.encode(str);
-		boolean judge = passwordEncoder.matches(str, pass);
+		CommentVO comment = new CommentVO();
+		log.info(comment.getBoardNumber());
+		log.info(comment.getCommentNumber());
+		log.info(comment.getCommentWriter());
+		log.info(comment.getCommentContent());
+		log.info(comment.getCommentRegdate());
 		
-		log.info("입력 = " + str);
-		log.info("password = " + pass);
-		log.info("판단 = " + judge);
+		service.getCommentList(boardNumber);
 		
+		log.info(comment.getBoardNumber());
+		log.info(comment.getCommentNumber());
+		log.info(comment.getCommentWriter());
+		log.info(comment.getCommentContent());
+		log.info(comment.getCommentRegdate());
+	
 	}
 
 }

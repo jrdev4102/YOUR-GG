@@ -13,46 +13,46 @@ import com.yourgg.persistence.BoardDAO;
 public class BoardService {
 	
 	@Autowired
-	private BoardDAO board;
+	private BoardDAO boardDAO;
 
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
 	public String getPassword(int boardNumber) {
-		return board.getPassword(boardNumber);
+		return boardDAO.getPassword(boardNumber);
 	}
 	
 	public int getTotalPost() {
-		return board.getTotalPost();
+		return boardDAO.getTotalPost();
 	}
 	
 	public List<BoardVO> getPosts(int nowPage) {
-		return board.getPosts(nowPage);
+		return boardDAO.getPosts(nowPage);
 	}
 	
 	public void registPost(BoardVO boardVO) {
 		boardVO.setBoardPassword(passwordEncoder.encode(boardVO.getBoardPassword()));
-		board.registPost(boardVO);
+		boardDAO.registPost(boardVO);
 	}
 	
 	public BoardVO getPost(int boardNumber) {
-		return board.getPost(boardNumber);
+		return boardDAO.getPost(boardNumber);
 	}
 	
 	public boolean deletePost(BoardVO boardVO) {
-		if(passwordEncoder.matches(boardVO.getBoardPassword(), board.getPassword(boardVO.getBoardNumber()))) {
-			board.deletePost(boardVO.getBoardNumber());
+		if(passwordEncoder.matches(boardVO.getBoardPassword(), boardDAO.getPassword(boardVO.getBoardNumber()))) {
+			boardDAO.deletePost(boardVO.getBoardNumber());
 			return true;
 		}
 		else return false;
 	}
 	
 	public boolean updateJudge(BoardVO boardVO) {
-		if(passwordEncoder.matches(boardVO.getBoardPassword(), board.getPassword(boardVO.getBoardNumber()))) return true;
+		if(passwordEncoder.matches(boardVO.getBoardPassword(), boardDAO.getPassword(boardVO.getBoardNumber()))) return true;
 		else return false;
 	}
 	
 	public void updatePost(BoardVO boardVO) {
-		board.updatePost(boardVO);
+		boardDAO.updatePost(boardVO);
 	}
 }

@@ -75,7 +75,7 @@
 					</form>
 					
 					<input style="float: left" type="button" class="btn btn-danger" onclick="goList();" value="목록" />
-					<input style="float: right" type="button" class="btn btn-dark" onclick="doWrite();" value="글쓰기" />
+					<input style="float: right" type="button" class="btn btn-light" onclick="doWrite();" value="글쓰기" />
 					
 					<br>
 					

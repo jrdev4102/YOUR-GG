@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yourgg.persistence.CommentDAO">
+
+<select id="getCommentList" resultType="com.yourgg.domain.CommentVO" >
+	<![CDATA[
+		SELECT /*+ INDEX_DESC(BOARD_COMMENT COMMENT_PK) */* FROM BOARD_COMMENT WHERE BOARD_NUMBER = #{param} ORDER BY COMMENT_NUMBER DESC
+	]]>
+</select>
+
+<select id="getCommentInfo" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*) FROM BOARD_COMMENT WHERE BOARD_NUMBER = #{param}
+	]]>
+</select>
+
+
+</mapper>
