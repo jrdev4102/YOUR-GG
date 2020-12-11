@@ -107,7 +107,8 @@
 							</form>
 						</tr>
 					</table>
-					<input style="float: right" type="button" class="btn btn-light ml-1" onclick="postComment();" value="댓글 등록" />
+					<input style="float: left" type="button" class="btn btn-danger" onclick="goList();" value="목록" />
+					<input style="float: right" type="button" class="btn btn-light ml-1" onclick="postComment();" onkeyup="enterKeyUp();" value="댓글 등록" />
 					
 					<br><br><br>
 					
@@ -160,7 +161,7 @@
 
 					<!-- 푸터 -->
 					<div class="modal-footer">
-						<button type="button" class="btn btn-info" onclick="doUpdate();" data-dismiss="modal">수정</button>
+						<button type="button" class="btn btn-info" onclick="doUpdate();" onkeyup="updateEnterKeyUp();" data-dismiss="modal">수정</button>
 					</div>
 				</div>
 			</div>
@@ -184,7 +185,7 @@
 
 					<!-- 푸터 -->
 					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" onclick="doDelete();" data-dismiss="modal">삭제</button>
+						<button type="button" class="btn btn-danger" onclick="doDelete();" onkeyup="deleteEnterKeyUp();" data-dismiss="modal">삭제</button>
 					</div>
 				</div>
 			</div>
@@ -193,6 +194,24 @@
 	</body>
 	
 	<script type="text/javascript">
+	
+		function enterKeyUp() {
+			if (event.keyCode == 13) {
+				postComment();
+			}
+		}
+		
+		function updateEnterKeyUp() {
+			if (event.keyCode == 13) {
+				doUpdate();
+			}
+		}
+		
+		function deleteEnterKeyUp() {
+			if (event.keyCode == 13) {
+				doDelete();
+			}
+		}
 	
 		function goList() {
 			var nowPage = document.location.search.replace("?","").split("&")[0];

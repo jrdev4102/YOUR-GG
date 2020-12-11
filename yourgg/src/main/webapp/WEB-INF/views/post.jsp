@@ -75,7 +75,7 @@
 					</form>
 					
 					<input style="float: left" type="button" class="btn btn-danger" onclick="goList();" value="목록" />
-					<input style="float: right" type="button" class="btn btn-light" onclick="doWrite();" value="글쓰기" />
+					<input style="float: right" type="button" class="btn btn-light" onclick="doWrite();" onkeyup="enterKeyUp();" value="글쓰기" />
 					
 					<br>
 					
@@ -112,6 +112,12 @@
 	</body>
 	
 	<script type="text/javascript">
+	
+		function enterKeyUp() {
+			if (event.keyCode == 13) {
+				doPost();
+			}
+		}
 	
 		function goList() {
 			var nowPage = document.location.href.split("?");

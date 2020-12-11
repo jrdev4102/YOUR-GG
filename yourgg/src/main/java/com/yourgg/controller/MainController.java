@@ -85,10 +85,6 @@ public class MainController {
 	@PostMapping("/post/comment")
 	@ResponseBody
 	public Map<String, Object> postMethod(@RequestParam("page") int nowPage, CommentVO commentVO) {
-		
-		log.info("nowPage = " + nowPage);
-		log.info("commentVO = " + commentVO);
-		
 		commentService.postComment(commentVO);
 		Map<String, Object> map = new HashMap<>();
 		map.put("page", nowPage);
