@@ -107,8 +107,8 @@
 							</form>
 						</tr>
 					</table>
-					<input style="float: left" type="button" class="btn btn-danger" onclick="goList();" value="목록" />
 					<input style="float: right" type="button" class="btn btn-light ml-1" onclick="postComment();" onkeyup="enterKeyUp();" value="댓글 등록" />
+					<input style="float: left" type="button" class="btn btn-danger" onclick="goList();" value="목록" />
 					
 					<br><br><br>
 					
