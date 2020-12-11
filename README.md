@@ -9,7 +9,7 @@
 
 + *Oracle12c / jdk 11-0.8 / tomcat 9 / servlet 4.0 / spring-framework 5.0*
 
-+ *excuteSQL.sql 를 실행하십시오*
++ *excuteSQL.sql 을 실행하십시오*
 
 + __*최초 초기화 시 SQL문 24,25행에서 에러구문이 발생할 수 있습니다*__
 + __*의도된 사항이니 진행하십시오*__
