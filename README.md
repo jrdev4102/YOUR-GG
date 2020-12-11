@@ -5,7 +5,7 @@
 ## *Context Path*
 > *src/main/webapp/*
 ---
-+ *하기의 환경으로 개발되었*
++ *하기의 환경으로 개발되었습니다*
 
 + *Oracle12c / jdk 11-0.8 / tomcat 9 / servlet 4.0 / spring-framework 5.0*
 
