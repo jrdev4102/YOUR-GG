@@ -6,53 +6,55 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.yourgg.domain.BoardVO;
+import com.yourgg.domain.BoardDTO;
 import com.yourgg.persistence.BoardDAO;
 
 @Service
 public class BoardService {
-	
-	@Autowired
-	private BoardDAO boardDAO;
 
-	@Autowired
-	BCryptPasswordEncoder passwordEncoder;
-	
-	public String getPassword(int boardNumber) {
-		return boardDAO.getPassword(boardNumber);
-	}
-	
-	public int getTotalPost() {
-		return boardDAO.getTotalPost();
-	}
-	
-	public List<BoardVO> getPosts(int nowPage) {
-		return boardDAO.getPosts(nowPage);
-	}
-	
-	public void registPost(BoardVO boardVO) {
-		boardVO.setBoardPassword(passwordEncoder.encode(boardVO.getBoardPassword()));
-		boardDAO.registPost(boardVO);
-	}
-	
-	public BoardVO getPost(int boardNumber) {
-		return boardDAO.getPost(boardNumber);
-	}
-	
-	public boolean deletePost(BoardVO boardVO) {
-		if(passwordEncoder.matches(boardVO.getBoardPassword(), boardDAO.getPassword(boardVO.getBoardNumber()))) {
-			boardDAO.deletePost(boardVO.getBoardNumber());
-			return true;
-		}
-		else return false;
-	}
-	
-	public boolean updateJudge(BoardVO boardVO) {
-		if(passwordEncoder.matches(boardVO.getBoardPassword(), boardDAO.getPassword(boardVO.getBoardNumber()))) return true;
-		else return false;
-	}
-	
-	public void updatePost(BoardVO boardVO) {
-		boardDAO.updatePost(boardVO);
-	}
+    private final BoardDAO boardDAO;
+
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    public BoardService(BoardDAO boardDAO, BCryptPasswordEncoder passwordEncoder) {
+        this.boardDAO = boardDAO;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public String getPassword(int boardNumber) {
+        return boardDAO.getPassword(boardNumber);
+    }
+
+    public int getTotalPost() {
+        return boardDAO.getTotalPost();
+    }
+
+    public List<BoardDTO> getPosts(int nowPage) {
+        return boardDAO.getPosts(nowPage);
+    }
+
+    public void registPost(BoardDTO boardDTO) {
+        boardDTO.setBoardPassword(passwordEncoder.encode(boardDTO.getBoardPassword()));
+        boardDAO.registPost(boardDTO);
+    }
+
+    public BoardDTO getPost(int boardNumber) {
+        return boardDAO.getPost(boardNumber);
+    }
+
+    public boolean deletePost(BoardDTO boardDTO) {
+        if (passwordEncoder.matches(boardDTO.getBoardPassword(), boardDAO.getPassword(boardDTO.getBoardNumber()))) {
+            boardDAO.deletePost(boardDTO.getBoardNumber());
+            return true;
+        } else return false;
+    }
+
+    public boolean updateJudge(BoardDTO boardDTO) {
+        if (passwordEncoder.matches(boardDTO.getBoardPassword(), boardDAO.getPassword(boardDTO.getBoardNumber()))) return true;
+        else return false;
+    }
+
+    public void updatePost(BoardDTO boardDTO) {
+        boardDAO.updatePost(boardDTO);
+    }
 }

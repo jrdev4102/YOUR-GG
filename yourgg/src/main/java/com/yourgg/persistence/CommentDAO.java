@@ -4,14 +4,15 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 
-import com.yourgg.domain.CommentVO;
+import com.yourgg.domain.CommentDTO;
+import org.springframework.stereotype.Repository;
 
 public interface CommentDAO {
 	
 	@Insert ("INSERT INTO BOARD_COMMENT VALUES (#{boardNumber}, comment_seq.nextval, #{commentWriter}, #{commentContent}, SYSDATE)")
-	public void postComment(CommentVO commentVO);
+	public void postComment(CommentDTO commentDTO);
 	
-	public List<CommentVO> getCommentList(int boardNumber);
+	public List<CommentDTO> getCommentList(int boardNumber);
 
 	public int getCommentInfo(int boardNumber);
 }

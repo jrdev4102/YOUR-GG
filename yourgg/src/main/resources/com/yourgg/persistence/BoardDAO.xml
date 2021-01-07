@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yourgg.persistence.BoardDAO">
 
-<select id="getPosts" resultType="com.yourgg.domain.BoardVO" >
+<select id="getPosts" resultType="com.yourgg.domain.BoardDTO" >
 	<![CDATA[
 		SELECT BOARD_NUMBER, BOARD_TITLE, BOARD_WRITER, BOARD_REGDATE
 		 FROM
@@ -12,7 +12,7 @@
 	]]>
 </select>
 
-<insert id="registPost" parameterType="com.yourgg.domain.BoardVO">
+<insert id="registPost" parameterType="com.yourgg.domain.BoardDTO">
 	<![CDATA[
 		INSERT INTO BOARD(BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITER, BOARD_REGDATE, BOARD_PASSWORD)
 		 VALUES

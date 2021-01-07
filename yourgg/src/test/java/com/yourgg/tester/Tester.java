@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.yourgg.domain.CommentVO;
+import com.yourgg.domain.CommentDTO;
 import com.yourgg.service.CommentService;
 
 import lombok.extern.log4j.Log4j;
@@ -47,7 +47,7 @@ public class Tester {
 		int boardNumber = 81;
 		log.info(boardNumber);
 		
-		CommentVO comment = new CommentVO();
+		CommentDTO comment = new CommentDTO();
 		log.info(comment.getBoardNumber());
 		log.info(comment.getCommentNumber());
 		log.info(comment.getCommentWriter());
